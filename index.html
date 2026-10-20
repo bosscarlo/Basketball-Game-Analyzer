@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hoops Analyzer</title>
+<meta name="description" content="Upload a basketball box score and get team comparisons, charts, and evidence-based improvement plans.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="#/home" aria-label="Hoops Analyzer home">
+      <svg viewBox="0 0 44 44" width="28" height="28" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="#e8590c"/><path d="M2 22h40M22 2v40M8 8q14 14 0 28M36 8q-14 14 0 28" fill="none" stroke="#14243d" stroke-width="2"/></svg>
+      Hoops Analyzer
+    </a>
+    <button id="burger" class="burger" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <a data-nav="home" href="#/home">Home</a>
+      <a data-nav="analyzer" href="#/analyzer">Analyzer</a>
+      <a data-nav="guide" href="#/guide">Guide</a>
+      <a data-nav="about" href="#/about">About Us</a>
+      <a data-nav="contact" href="#/contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HOME -->
+<div class="view" id="v-home">
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Drop in a box score. See what the numbers say.</h1>
+        <p>Hoops Analyzer turns game statistics into team comparisons, charts, and improvement plans for shooting, free throws, ball security, and more. Every finding points back to the data.</p>
+        <div class="actions">
+          <a class="btn primary" href="#/analyzer">Open the analyzer</a>
+          <a class="btn" href="#/guide">How it works</a>
+        </div>
+        <div class="formats"><span>CSV</span><span>Excel</span><span>Word (.docx)</span><span>PDF</span><span>JSON</span><span>TSV</span><span>TXT</span></div>
+      </div>
+      <svg class="court" viewBox="0 0 320 300" role="img" aria-label="Half court with basketball">
+        <rect x="10" y="10" width="300" height="280"/><rect x="110" y="10" width="100" height="120"/>
+        <path d="M110 130a50 50 0 0 0 100 0" class="dash"/><path d="M40 10v70a120 120 0 0 0 240 0V10"/>
+        <circle cx="160" cy="36" r="9"/><path d="M130 22h60"/>
+        <g class="ball"><circle cx="160" cy="205" r="22"/><path d="M138 205h44M160 183v44M145 190q15 15 0 30M175 190q-15 15 0 30"/></g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="reveal">
+      <h2>What you get</h2>
+      <p class="lede">Built for coaches, players, and team managers who want a clear next step after every game.</p>
+      <div class="grid3">
+        <div class="card"><h3>Team comparison</h3><p>Shooting splits, rebounds, assists, steals, blocks, turnovers, and fouls side by side.</p></div>
+        <div class="card"><h3>Five live charts</h3><p>Shooting against reference values, scoring mix, top players, a team profile radar, and shot volume against efficiency.</p></div>
+        <div class="card"><h3>Improvement priorities</h3><p>Each team area is ranked High, Medium, or Low with a suggested focus and a proposed target.</p></div>
+        <div class="card"><h3>Player development</h3><p>Baselines, strengths, one main opportunity, a practice focus, and a target for each player who played.</p></div>
+        <div class="card"><h3>Many file formats</h3><p>CSV, Excel, Word, PDF, JSON, TSV, and TXT. Common column names such as Points, Rebounds, or 3PM are recognized.</p></div>
+        <div class="card"><h3>Data checks</h3><p>Missing values, impossible makes, and mismatched points are flagged instead of quietly changed.</p></div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <h2>Three steps</h2>
+      <ol class="steps">
+        <li><b>Upload</b><span>Drop your stats file on the Analyzer page, or try the sample game.</span></li>
+        <li><b>Explore</b><span>Compare teams, sort players, and read the charts. Change the reference values to match your level of play.</span></li>
+        <li><b>Plan</b><span>Use the priorities and player cards to set targets, then print or save the page as a PDF.</span></li>
+      </ol>
+    </section>
+
+    <section class="reveal">
+      <div class="band">
+        <div><h2>Ready for your first game?</h2><p>Nothing is uploaded to a server. Your file is read in your browser.</p></div>
+        <a class="btn primary" href="#/analyzer">Analyze a game</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ANALYZER -->
+<div class="view" id="v-analyzer" hidden>
+  <div class="wrap">
+    <section>
+      <h1 class="title">Game analyzer</h1>
+      <div class="card drop">
+        <p>Drag a file anywhere on this page, or choose one.</p>
+        <div class="actions">
+          <label class="btn primary" for="file">Upload stats file</label>
+          <input id="file" type="file" accept=".csv,.tsv,.txt,.json,.xlsx,.xls,.xlsm,.ods,.docx,.pdf" hidden>
+          <button class="btn" id="sample" type="button">Try sample game</button>
+          <button class="btn" id="template" type="button">Download template</button>
+          <button class="btn" id="print" type="button">Print or save as PDF</button>
+        </div>
+        <div class="formats"><span>CSV</span><span>TSV</span><span>TXT</span><span>JSON</span><span>XLSX</span><span>XLS</span><span>DOCX</span><span>PDF</span></div>
+        <p class="note" id="status">Sample data is made up for demonstration.</p>
+      </div>
+    </section>
+
+    <section id="gameInfo" hidden><h2>Game information</h2><div class="card" id="info"></div></section>
+
+    <section><h2>Scoreboard</h2><div id="score" class="score"></div></section>
+
+    <section>
+      <h2>Team comparison</h2>
+      <p class="lede">Bars show each team's share of the combined total. Percentages are calculated from the makes and attempts in your file.</p>
+      <div id="bars" class="bars"></div>
+    </section>
+
+    <section>
+      <h2>Charts</h2>
+      <p class="note" id="chartNote"></p>
+      <div class="grid-charts">
+        <div class="card" id="qCard" hidden><h3>Points by quarter</h3><div class="chart"><canvas id="cQuarters"></canvas></div><p class="note chart-note">Shows which quarters each team won. A late swing often points to conditioning, rotation, or fouls.</p></div>
+        <div class="card"><h3>Shooting vs reference</h3><div class="chart"><canvas id="cShoot"></canvas></div><p class="note chart-note">Bars below the diamond marker are below the reference value. eFG% credits threes, and TS% includes free throws.</p></div>
+        <div class="card"><h3>Where the points came from</h3><div class="chart"><canvas id="cMix"></canvas></div><p class="note chart-note">A team living on free throws or threes alone is easier to guard than one with a balanced mix.</p></div>
+        <div class="card"><h3>Top players by efficiency</h3><div class="chart"><canvas id="cPlayers"></canvas></div><p class="note chart-note">Efficiency rewards production and subtracts misses and turnovers, so a high scorer on poor shooting ranks lower.</p></div>
+        <div class="card"><h3>Team profile</h3><div class="chart"><canvas id="cRadar"></canvas></div><p class="note chart-note">100 equals the reference. A point pulled toward the center marks a weaker area. Ball security is scored so that fewer turnovers reads higher.</p></div>
+        <div class="card"><h3>Shot volume vs accuracy</h3><div class="chart"><canvas id="cScatter"></canvas></div><p class="note chart-note">Players high on the right take many shots. Those below the dashed line are shooting under the FG% reference.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Findings</h2>
+      <p class="lede">Each finding is calculated from the data. Treat them as starting points and check video before acting on them.</p>
+      <ul id="findings" class="findings"></ul>
+    </section>
+
+    <section>
+      <h2>What to improve: teams</h2>
+      <p class="lede">Reference values are general starting points. Change them to match your league, age group, or goals, and everything below updates.</p>
+      <div id="bench" class="bench"></div>
+      <div id="plan" class="plan-wrap"></div>
+      <p class="note">Priority compares the current value with the reference. High means more than 15% off, Medium more than 5%. Proposed targets are suggestions and not guaranteed outcomes.</p>
+    </section>
+
+    <section>
+      <h2>What to improve: players</h2>
+      <p class="lede">Only players with enough attempts get a reading. Small samples can swing a lot from one game to the next.</p>
+      <div id="dev" class="dev"></div>
+    </section>
+
+    <section>
+      <h2>Players</h2>
+      <div class="tools">
+        <input id="q" type="search" placeholder="Search player name" aria-label="Search player name">
+        <div class="seg" id="teamFilter" role="group" aria-label="Filter by team"></div>
+        <button class="btn" id="export" type="button">Export table as CSV</button>
+      </div>
+      <div class="table-wrap"><table id="players"><thead></thead><tbody></tbody></table></div>
+      <p class="note">Efficiency = PTS + REB + AST + STL + BLK minus missed shots, missed free throws, and turnovers. Players who did not play are listed below instead of being evaluated. A * after a name marks a starter, and EF* is the efficiency printed on the source sheet.</p>
+      <div id="dnp" class="note"></div>
+    </section>
+  </div>
+</div>
+
+<!-- GUIDE -->
+<div class="view" id="v-guide" hidden>
+  <div class="wrap">
+    <section>
+      <h1 class="title">Guide</h1>
+      <p class="lede">Everything you need to prepare a file and read the results.</p>
+      <h2>File columns</h2>
+      <p class="lede">Only player and team are required. StatsCentral result sheets (PDF or pasted text, like the CESAFI ones) are recognized automatically, including quarter scores and the team stats table. Missing stat columns are treated as 0 and listed in the data checks. Combined columns such as FG as 7-15 are also understood.</p>
+      <div class="table-wrap"><table class="plan">
+        <thead><tr><th>Stat</th><th>Names we recognize</th></tr></thead>
+        <tbody>
+          <tr><td>Player</td><td>player, name, athlete</td></tr>
+          <tr><td>Team</td><td>team, squad, club</td></tr>
+          <tr><td>Jersey number</td><td>number, no, #, jersey</td></tr>
+          <tr><td>Minutes</td><td>min, mins, minutes, mp (a value like 32:15 also works)</td></tr>
+          <tr><td>Points</td><td>pts, points</td></tr>
+          <tr><td>Rebounds</td><td>reb, rebounds, trb</td></tr>
+          <tr><td>Assists, steals, blocks</td><td>ast / assists, stl / steals, blk / blocks</td></tr>
+          <tr><td>Turnovers, fouls</td><td>tov / to / turnovers, pf / fouls</td></tr>
+          <tr><td>Field goals</td><td>fgm and fga, or one fg column like 7-15</td></tr>
+          <tr><td>Three-pointers</td><td>tpm and tpa, 3pm and 3pa, or one 3p column</td></tr>
+          <tr><td>Free throws</td><td>ftm and fta, or one ft column</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Spreadsheets use the first sheet. Word (.docx) and PDF files are read when they contain a stats table with a header row, such as Player, PTS, REB, AST. If a table has no Team column, each table is labeled with the line above it, or Team 1, Team 2. Scanned or photographed PDFs have no readable text, so upload those to Claude in chat and ask for the table. TXT files can be separated by commas, tabs, semicolons, or two or more spaces.</p>
+    </section>
+
+    <section>
+      <h2>How the numbers are calculated</h2>
+      <div class="grid3">
+        <div class="card"><h3>FG%, 3P%, FT%</h3><p>Makes divided by attempts for each shot type.</p></div>
+        <div class="card"><h3>eFG%</h3><p>(FGM + 0.5 x 3PM) / FGA. It gives extra credit for threes.</p></div>
+        <div class="card"><h3>TS%</h3><p>Points / (2 x (FGA + 0.44 x FTA)). It blends all scoring into one efficiency number.</p></div>
+        <div class="card"><h3>Turnover rate</h3><p>Turnovers as a share of possessions used: TOV / (FGA + 0.44 x FTA + TOV). Lower is better.</p></div>
+        <div class="card"><h3>Assist to turnover</h3><p>Assists divided by turnovers. Above 1.5 is a common team target.</p></div>
+        <div class="card"><h3>Free throw rate</h3><p>Free throw attempts per 100 field goal attempts. It shows how often a team gets to the line.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Questions</h2>
+      <div class="faq">
+        <details><summary>Where do the reference values come from?</summary><p>They are general starting points, not official standards. Edit them on the Analyzer page to match your level of play.</p></details>
+        <details><summary>Why does a player have no improvement plan?</summary><p>There were too few attempts for a reliable read. It takes at least 6 field goal attempts, 3 three-point attempts, or 3 free throw attempts.</p></details>
+        <details><summary>Why do some stats say n/a?</summary><p>That stat needs attempts that were zero or missing in the file. Nothing is guessed.</p></details>
+        <details><summary>Is my data stored anywhere?</summary><p>No. The file is read in your browser and is never sent to a server.</p></details>
+        <details><summary>Can it replace watching video?</summary><p>No. Statistics show what happened, and video shows why. Findings are labeled as starting points for that reason.</p></details>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="view" id="v-about" hidden>
+  <div class="wrap">
+    <section>
+      <h1 class="title">About Us</h1>
+      <p class="lede">Hoops Analyzer exists to turn a pile of box score numbers into a short list of things a team can actually work on.</p>
+      <div class="grid3">
+        <div class="card"><h3>Our mission</h3><p>Give coaches, players, and team managers a clear, honest picture of each game and a practical plan for the next one.</p></div>
+        <div class="card"><h3>Evidence first</h3><p>We do not invent strengths or weaknesses. If the data cannot support a claim, the page says more information is needed.</p></div>
+        <div class="card"><h3>Realistic targets</h3><p>Targets are proposals with a review period. They are goals to aim for and never promised results.</p></div>
+        <div class="card"><h3>Transparent data</h3><p>Source values stay as they were uploaded. Calculated values are labeled, and questionable entries are flagged.</p></div>
+        <div class="card"><h3>Private by design</h3><p>Everything runs in your browser. Files are not uploaded or stored.</p></div>
+        <div class="card"><h3>Built to grow</h3><p>Planned next: quarter-by-quarter scores, multi-game tracking, and exportable reports.</p></div>
+      </div>
+    </section>
+    <section>
+      <h2>Our team</h2>
+      <!-- Add your team members here. Copy one .card block per person. -->
+      <div class="card"><p>Add your team name, school or organization, and members here by editing the About section in index.html.</p></div>
+    </section>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="view" id="v-contact" hidden>
+  <div class="wrap">
+    <section>
+      <h1 class="title">Contact</h1>
+      <p class="lede">Questions, feedback, or a feature request? Send a message.</p>
+      <form id="contactForm" class="card form" novalidate>
+        <label>Name<input name="name" required autocomplete="name"></label>
+        <label>Email<input name="email" type="email" required autocomplete="email"></label>
+        <label>Topic<select name="topic"><option>Question</option><option>Feedback</option><option>Feature request</option><option>Report a problem</option></select></label>
+        <label>Message<textarea name="msg" rows="5" required></textarea></label>
+        <button class="btn primary" type="submit">Send message</button>
+        <p class="note" id="formStatus" role="status"></p>
+      </form>
+    </section>
+  </div>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap foot">
+    <span>&copy; <span id="year"></span> Hoops Analyzer</span>
+    <span class="foot-links"><a href="#/home">Home</a><a href="#/analyzer">Analyzer</a><a href="#/guide">Guide</a><a href="#/about">About Us</a><a href="#/contact">Contact</a></span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
